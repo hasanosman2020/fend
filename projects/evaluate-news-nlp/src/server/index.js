@@ -21,3 +21,28 @@ app.listen(8080, function () {
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 })
+
+//inserting post request and the fetch data - https://knowledge.udacity.com/questions533709
+
+app.post('/test', async(req,res) => {
+    const url = req.body.formText;
+    const baseURL = 'https://api.meaningcloud.com/sentiment-2.1?key=$(API_KEY)&lang=en&txt=$(JSON)&url=$(url)';
+    const result = await fetch(url + baseURL, {
+        method:'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }) 
+
+    try {
+        const newData = await result.json();
+        console.log(result, newData);
+        return newData;
+    }
+
+    catch(error){
+        console.log("error", error);
+        //approximately handle the error
+    }
+});
