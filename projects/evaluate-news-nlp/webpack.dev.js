@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
     entry: './src/client/index.js',
@@ -20,13 +19,14 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: "babel-loader"
             },
+            //ref: https://knowledge.udacity.com/questions/534915
             {
-                test: /\.scss$/,
+                test: /\.scss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                test: /\.css$/i,
+                use: ['css-loader']
             }
         ]
     },
@@ -43,7 +43,7 @@ module.exports = {
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
-        }),
-        new MiniCssExtractPlugin()
+        })
+    
     ]
 }
