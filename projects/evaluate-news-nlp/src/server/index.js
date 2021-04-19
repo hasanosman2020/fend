@@ -1,3 +1,5 @@
+projectData = {};
+
 //taken from https://www.knowledge.udacity.com/questions/539331
 
 const dotenv = require('dotenv')
@@ -7,35 +9,40 @@ dotenv.config()
 var path = require('path')
 const express = require('express')
 const mockAPIResponse = require('./mockAPI.js')
+const fetch = require('node-fetch')
 
+//Variables for API call
+let baseURL = 'https://api.meaningcloud.com/sentiment-2.1?key=';
+const json = '&of=json&txt=';
+const apiKey = process.env.API_KEY;
+const end = '&model=General&lang=en';
+
+//start up an instance of app
 const app = express()
-
-const apiKey = process.env.API_KEY
+app.use(express.static('dist'));
 
 
 //from https://www.meaningcloud.com/developer/sentiment-analysis/dev-tools/2.1, nodejs, https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/request
 
 //Dependencies
-const bodyParser = require('body-parser')
 
 //Middleware
-//Here we are configuring express to use body-parser as middle-ware.
+//Install body-parser and configure express to use as middleware
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded(
     { extended: false}
 ));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-console.log(__dirname)
-
-//Cors for cross-origin allowance
+//Install cors for cross-origin allowance
 const cors = require('cors')
-const { url } = require('inspector')
-app.use(cors())
+//const { url } = require('inspector')
+app.use(cors());
 
-app.use(express.static('dist'))
+console.log(__dirname);
 
-//for api key
-console.log(`Your API key is ${process.env.API_KEY}`);
+
+
 
 //ref: https://knowledge.udacity.com/questions/536010
 
@@ -56,28 +63,26 @@ app.listen(8080, function(){
     console.log('Example app listening on port 8080!')
 })
 
-app.get('/test', function (req, res) {
+/*app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
-})
+})*/
+
+//for api key
+console.log(`Your API key is ${apiKey}`);
+
 
 //inserting post request and the fetch data - https://knowledge.udacity.com/questions/533709
 
-app.post('/test', async(req,res) => {
-    const url = req.body.inputText;
-    const baseURL = `https://api.meaningcloud.com/sentiment-2.1?key=${API_KEY}&lang=en&txt=${JSON}&url=${url}`;
-    const result = await fetch(url + baseURL, {
-        method:'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    console.log('result ====>', result)
+app.post('/api', async(req,res) => {
+    const resultSentiment = await fetch(`${baseURL}${apiKey}&lang=auto&url=${req.body.inputText}`, {
+        method: 'POST'
+    });
+    console.log('result ====>', resultSentiment)
 
     try {
-        const newData = await result.json();
-        console.log(result, newData);
-        return newData;
+        const data = await resultSentiment.json();
+        console.log(resultSentiment, data);
+        res.send(data);
     }
 
     catch(error){
@@ -85,5 +90,8 @@ app.post('/test', async(req,res) => {
         //approximately handle the error
     }
 })
+
+
+
 
 
