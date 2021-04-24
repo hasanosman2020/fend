@@ -1,7 +1,3 @@
-projectData = {};
-
-//taken from https://www.knowledge.udacity.com/questions/539331
-
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -22,8 +18,6 @@ const app = express()
 app.use(express.static('dist'));
 
 
-//from https://www.meaningcloud.com/developer/sentiment-analysis/dev-tools/2.1, nodejs, https://www.meaningcloud.com/developer/sentiment-analysis/doc/2.1/request
-
 //Dependencies
 
 //Middleware
@@ -43,39 +37,34 @@ console.log(__dirname);
 
 
 
-
-//ref: https://knowledge.udacity.com/questions/536010
-
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
-    /*
-    //app.get("/", (req, res) => res.sendFile("index.html"));
-    //res.sendFile(path.resolve('src/client/views/index.html'))
-})
+   
 // designates what port the app will listen to for incoming requests
-//app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
-//})
-*/
 
-app.listen(8080, function(){
-    console.log('Example app listening on port 8080!')
+app.listen(3031, function(){
+    console.log('Example app listening on port 3031!')
 })
 
-/*app.get('/test', function (req, res) {
+app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
-})*/
+})
 
 //for api key
 console.log(`Your API key is ${apiKey}`);
 
 
-//inserting post request and the fetch data - https://knowledge.udacity.com/questions/533709
+//inserting post request and the fetch data
 
 app.post('/api', async(req,res) => {
     const resultSentiment = await fetch(`${baseURL}${apiKey}&lang=auto&url=${req.body.inputText}`, {
-        method: 'POST'
+        method: 'POST',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     console.log('result ====>', resultSentiment)
 
@@ -87,7 +76,7 @@ app.post('/api', async(req,res) => {
 
     catch(error){
         console.log("error", error)
-        //approximately handle the error
+        //appropriately handle the error
     }
 })
 

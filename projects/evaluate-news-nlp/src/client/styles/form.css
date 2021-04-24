@@ -1,7 +1,8 @@
 form {
-    border: 1px solid #545454;
+    border: 3px solid #545454;
     border-radius: 3px;
     padding: 40px;
+    color: #102b3f;
 }
 
 input {
