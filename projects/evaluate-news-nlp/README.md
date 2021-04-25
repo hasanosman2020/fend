@@ -11,14 +11,13 @@ This is the fourth project in the [Udacity](https://www.udacity.com) [Front End 
 - create a front-end UI form where users can enter a url to be analysed using Sentiment Analysis API;
 - set up express server in order to make fetch requests to MeaningCloud 
 - set up webpack dev server and production build configurations;
-- use SASS styling;
 - perform testing using jest; and
 - set up service worker using workbox.
 
 
 3. **Project Tech Stack**
 
-- programming languages: JavaScript, SCSS, HTML;
+- programming languages: JavaScript, CSS, HTML;
 - webserver - Node
 - web application framework for routing: Express
 - build tool: Webpack;
@@ -36,9 +35,9 @@ The starter code was provided by [Udacity](https://www.udacity.com). In addition
 - set up webpack loaders and plugins;
 - developed front-end and back-end JavaScript to handle the requests to external API on form submission;
 - developed functionalities to validate the form input;
-- created layouts and page design with Sass;
+- created layouts and page design with CSS;
 - set up Service Workers; and
-- wrote unit tests for the functions defined in the src/cliemt/js directory using Jest.
+- wrote unit tests for the functions defined in the src/client/js directory using Jest.
 
 
 
@@ -68,18 +67,18 @@ We need to declare our API key. Follow the instructions below:
     `npm install dotenv`
 
 
-- Create a new ```.env``` file in the root of the project.
+- Create a new `.env` file in the root of the project.
 - Insert the API key in the .env file like this:
 
     `API_KEY = *************************`
 
 
-- Go to your .gitignore file and add ```.env``` - this ensures that the environment variables do not get pushed to Github. API keys should be protected and skipping this step means that your API key will get pushed to Github and can be accessed by everyone. 
+- Go to your .gitignore file and add `.env` - this ensures that the environment variables do not get pushed to Github. API keys should be protected and skipping this step means that your API key will get pushed to Github and can be accessed by everyone. 
 
 
 ### Step 4: Running the Development Server
 
-- Compile and start the server by typing the following command in your terminal: ```npm run build-dev```
+- Compile and start the server by typing the following command in your terminal: `npm run build-dev`
 
 
 ### Step 5: Testing (optional)
@@ -89,7 +88,7 @@ We need to declare our API key. Follow the instructions below:
     `npm run test`
 
 
-### Step 6: Runjning the Production Server
+### Step 6: Running the Production Server
 
 - Open a new terminal window
 - Compile the code
@@ -107,4 +106,4 @@ We need to declare our API key. Follow the instructions below:
 
     `localhost:3031`
 
-Enjoy the analysis of your news articles!
+Enter the url of a news article in the space provided, push the submit button, and enjoy the results of the analysis of your news article!
